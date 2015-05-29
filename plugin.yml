@@ -1,0 +1,11 @@
+name: Armor Wardrobe
+version: 7.0
+main: me.gal0511.ward.Main
+author: gal0511
+description: Armor Wardrobe.
+ 
+commands:
+    ward:
+        description: Wardrobe.
+    wget:
+        description: Get the wardrobe item.
