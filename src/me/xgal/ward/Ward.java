@@ -1,4 +1,4 @@
-package me.gal0511.ward;
+package me.xgal.ward;
 
 import java.util.ArrayList;
 import org.bukkit.Bukkit;
@@ -10,26 +10,12 @@ import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
-import org.bukkit.plugin.Plugin;
 
 public class Ward implements Listener{
-		private Inventory inv;
   
-		public Ward(Plugin pl){
-			Bukkit.getServer().getPluginManager().registerEvents(this, pl);
-		}
-		
-  
-		public void show(Player p){
-			this.inv = Bukkit.getServer().createInventory(null, 36, "§bWardrobe");
-    
-			ItemStack head = new ItemStack(Material.SKULL_ITEM);
-			ItemMeta headm = head.getItemMeta();
-			headm.setDisplayName("§bChoose Heads");
-			head.setItemMeta(headm);
-    
-    
-    
+		public static void open(Player p){
+			Inventory inv = Bukkit.getServer().createInventory(null, 36, "§bWardrobe");
+			
 			ItemStack no = new ItemStack(Material.REDSTONE_LAMP_OFF, 1);
 			ItemMeta noname = no.getItemMeta();
 			noname.setDisplayName("§cClear Armor");
@@ -38,54 +24,44 @@ public class Ward implements Listener{
 			noname.setLore(lore5);
 			no.setItemMeta(noname);
     
-			ItemStack gal0511 = new ItemStack(Material.BOOK, 1);
-			ItemMeta galm = gal0511.getItemMeta();
-			galm.setDisplayName("§bAuthor Info");
-			ArrayList<String> loreg = new ArrayList<String>();
-			loreg.add("§6Author info: §8gal0511");
-			galm.setLore(loreg);
-			gal0511.setItemMeta(galm);
-    
-			this.inv.setItem(35, no);
-			this.inv.setItem(27, gal0511);
-			this.inv.setItem(0, head);
+		    inv.setItem(35, no);
     
     
-			this.inv.setItem(2, new ItemStack(Material.LEATHER_HELMET));
-			this.inv.setItem(11, new ItemStack(Material.LEATHER_CHESTPLATE));
-			this.inv.setItem(20, new ItemStack(Material.LEATHER_LEGGINGS));
-			this.inv.setItem(29, new ItemStack(Material.LEATHER_BOOTS));
+			inv.setItem(2, new ItemStack(Material.LEATHER_HELMET));
+			inv.setItem(11, new ItemStack(Material.LEATHER_CHESTPLATE));
+			inv.setItem(20, new ItemStack(Material.LEATHER_LEGGINGS));
+			inv.setItem(29, new ItemStack(Material.LEATHER_BOOTS));
     
 
-			this.inv.setItem(3, new ItemStack(Material.GOLD_HELMET));
-			this.inv.setItem(12, new ItemStack(Material.GOLD_CHESTPLATE));
-			this.inv.setItem(21, new ItemStack(Material.GOLD_LEGGINGS));
-			this.inv.setItem(30, new ItemStack(Material.GOLD_BOOTS));
+			inv.setItem(3, new ItemStack(Material.GOLD_HELMET));
+			inv.setItem(12, new ItemStack(Material.GOLD_CHESTPLATE));
+			inv.setItem(21, new ItemStack(Material.GOLD_LEGGINGS));
+			inv.setItem(30, new ItemStack(Material.GOLD_BOOTS));
     
 
-			this.inv.setItem(4, new ItemStack(Material.CHAINMAIL_HELMET));
-			this.inv.setItem(13, new ItemStack(Material.CHAINMAIL_CHESTPLATE));
-			this.inv.setItem(22, new ItemStack(Material.CHAINMAIL_LEGGINGS));
-			this.inv.setItem(31, new ItemStack(Material.CHAINMAIL_BOOTS));
+			inv.setItem(4, new ItemStack(Material.CHAINMAIL_HELMET));
+			inv.setItem(13, new ItemStack(Material.CHAINMAIL_CHESTPLATE));
+			inv.setItem(22, new ItemStack(Material.CHAINMAIL_LEGGINGS));
+			inv.setItem(31, new ItemStack(Material.CHAINMAIL_BOOTS));
     
 
-			this.inv.setItem(5, new ItemStack(Material.IRON_HELMET));
-			this.inv.setItem(14, new ItemStack(Material.IRON_CHESTPLATE));
-			this.inv.setItem(23, new ItemStack(Material.IRON_LEGGINGS));
-			this.inv.setItem(32, new ItemStack(Material.IRON_BOOTS));
+			inv.setItem(5, new ItemStack(Material.IRON_HELMET));
+			inv.setItem(14, new ItemStack(Material.IRON_CHESTPLATE));
+			inv.setItem(23, new ItemStack(Material.IRON_LEGGINGS));
+			inv.setItem(32, new ItemStack(Material.IRON_BOOTS));
     
 
-			this.inv.setItem(6, new ItemStack(Material.DIAMOND_HELMET));
-			this.inv.setItem(15, new ItemStack(Material.DIAMOND_CHESTPLATE));
-			this.inv.setItem(24, new ItemStack(Material.DIAMOND_LEGGINGS));
-			this.inv.setItem(33, new ItemStack(Material.DIAMOND_BOOTS));
+			inv.setItem(6, new ItemStack(Material.DIAMOND_HELMET));
+			inv.setItem(15, new ItemStack(Material.DIAMOND_CHESTPLATE));
+			inv.setItem(24, new ItemStack(Material.DIAMOND_LEGGINGS));
+			inv.setItem(33, new ItemStack(Material.DIAMOND_BOOTS));
     
-			p.openInventory(this.inv);
+			p.openInventory(inv);
 		}
   
 		@EventHandler
 		public void onInventoryClick(InventoryClickEvent e){
-			if (!e.getInventory().getName().equalsIgnoreCase(this.inv.getName())) {
+			if (!e.getInventory().getName().equalsIgnoreCase("§bWardrobe")) {
 				return;
 			}
     
@@ -294,13 +270,7 @@ public class Ward implements Listener{
 				} else {
 					p.sendMessage("§6Wardrobe> §bYou dont have permission for this!");
 				}
-			}
-			
-			
-			
-			
-			
-			
+			}			
     
 			if(e.getSlot() == 35){
 				e.setCancelled(true);
@@ -308,20 +278,6 @@ public class Ward implements Listener{
 				p.closeInventory();
 				p.getInventory().setArmorContents(null);
 				p.updateInventory();
-			}
-    
-			if(e.getSlot() == 27){
-				e.setCancelled(true);
-				p.sendMessage("§6Wardrobe> §bPlugin dev: gal0511");
-			}
-    
-			if(e.getSlot() == 0){
-				e.setCancelled(true);
-				if(p.hasPermission("ward.heads")){
-					p.performCommand("headmenu");
-				} else {
-					p.sendMessage("§6Wardrobe> §bYou dont have permission to use Heads!");
-				}
 			}
 		}
 	}

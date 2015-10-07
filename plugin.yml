@@ -1,9 +1,8 @@
-name: Armor Wardrobe
-version: 7.0
-main: me.gal0511.ward.Main
-author: gal0511
+name: ArmorWardrobe
+version: 8.0
+main: me.xgal.ward.Main
+author: xGal
 description: Armor Wardrobe.
- 
 commands:
     ward:
         description: Wardrobe.
